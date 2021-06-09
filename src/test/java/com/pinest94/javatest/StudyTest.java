@@ -7,10 +7,12 @@ import javax.xml.ws.WebEndpoint;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
 
     @Test
-    void create1() {
+    @DisplayName("스터디 생성 테스트 😃")
+    void create_new_study() {
         Study study = new Study();
         assertNotNull(study);
         System.out.println("create1");
@@ -18,7 +20,8 @@ class StudyTest {
 
     @Test
     @Disabled
-    void create2() {
+    @DisplayName("스터디 재생성 테스트 😬")
+    void create_new_study_again() {
         System.out.println("create2");
     }
 
