@@ -1,13 +1,17 @@
 package com.pinest94.javatest;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.springframework.boot.autoconfigure.web.servlet.ConditionalOnMissingFilterBean;
 
 import javax.xml.ws.WebEndpoint;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StudyTest {
@@ -48,6 +52,37 @@ class StudyTest {
             new Study(1);
             Thread.sleep(10000);
         });
+    }
+
+    @Test
+    @DisplayName("조건에 따른 테스트")
+    void assumeTest() {
+        String env = System.getenv("TEST_ENV");
+
+        assumingThat("LOCAL".equalsIgnoreCase(env), () -> {
+
+            Study study = new Study(100);
+            assertThat(study.getLimit()).isGreaterThan(100);
+        });
+
+        assumingThat("HANSOL".equalsIgnoreCase(env), () -> {
+            Study study = new Study(20);
+            assertThat(study.getLimit()).isGreaterThan(10);
+        });
+    }
+
+    @Test
+    @DisplayName("운영체제에 따른 테스트 - MAC, LINUX")
+    @EnabledOnOs({OS.MAC, OS.LINUX})
+    void testOnLinuxOrMac() {
+        System.out.println("MAC or LINUX입니다");
+    }
+
+    @Test
+    @DisplayName("운영체제에 따른 테스트 - Windows")
+    @EnabledOnOs({OS.WINDOWS})
+    void testOnOSWindows() {
+        System.out.println("Windows");
     }
 
     @BeforeAll
