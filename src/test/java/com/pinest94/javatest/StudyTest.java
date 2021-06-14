@@ -3,9 +3,6 @@ package com.pinest94.javatest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
-import org.springframework.boot.autoconfigure.web.servlet.ConditionalOnMissingFilterBean;
-
-import javax.xml.ws.WebEndpoint;
 
 import java.time.Duration;
 
@@ -18,6 +15,7 @@ class StudyTest {
 
     @Test
     @DisplayName("스터디 생성 테스트 😃")
+    @Tag("fast")
     void create_new_study() {
         Study study = new Study(10);
 
@@ -29,8 +27,8 @@ class StudyTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("스터디 생성 예외처리 테스트 😬")
+    @Tag("slow")
     void create_study_exception() {
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> new Study(-10));

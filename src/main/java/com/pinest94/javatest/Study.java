@@ -2,7 +2,7 @@ package com.pinest94.javatest;
 
 public class Study {
 
-    private StudyStatus studyStatus;
+    private StudyStatus studyStatus = StudyStatus.DRAFT;
 
     private int limit;
 
