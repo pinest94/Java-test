@@ -15,7 +15,8 @@ class StudyTest {
 
     @Test
     @DisplayName("스터디 생성 테스트 😃")
-    @Tag("fast")
+    // @Tag("fast")
+    @FastTest
     void create_new_study() {
         Study study = new Study(10);
 
@@ -28,7 +29,8 @@ class StudyTest {
 
     @Test
     @DisplayName("스터디 생성 예외처리 테스트 😬")
-    @Tag("slow")
+    // @Tag("slow")
+    @SlowTest
     void create_study_exception() {
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> new Study(-10));
