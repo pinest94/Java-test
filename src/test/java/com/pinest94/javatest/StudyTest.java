@@ -23,12 +23,30 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class StudyTest {
+
+    int value = 0;
+
+    @Test
+    void test1() {
+        System.out.println(this);
+        System.out.println(value++);
+    }
+
+    @Test
+    void test2() {
+        System.out.println(this);
+        System.out.println(value++);
+    }
+
 
     @Test
     @DisplayName("스터디 생성 테스트 😃")
     // @Tag("fast")
     @FastTest
+    @Disabled
     void create_new_study() {
         Study study = new Study(10);
 
@@ -39,6 +57,7 @@ class StudyTest {
         );
     }
 
+    @Order(5)
     @Test
     @DisplayName("스터디 생성 예외처리 테스트 😬")
     // @Tag("slow")
@@ -66,15 +85,18 @@ class StudyTest {
         });
     }
 
+    @Order(1)
     @DisplayName("반복 테스트")
     @RepeatedTest(value = 10, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
     void repeatTest(RepetitionInfo repetitionInfo) {
         System.out.println("test " + repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
     }
 
+    @Order(2)
     @ParameterizedTest(name = "{index}, message = {0}")
     @ValueSource(ints = {10, 20, 40, 80, 100})
     @NullAndEmptySource
+    @Disabled
     void parameterizedTest(@ConvertWith(StudyConverter.class) Study study) {
         System.out.println(study.getLimit());
     }
@@ -88,6 +110,7 @@ class StudyTest {
         }
     }
 
+    @Order(3)
     @ParameterizedTest(name = "{index}, message = {0}")
     @CsvSource({"10, 'Java Study'", "15, 'JPA Study'", "5, 'Algo Study'"})
     void parameterizedTest2(ArgumentsAccessor argumentsAccessor) {
