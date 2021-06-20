@@ -3,7 +3,9 @@ package com.pinest94.javatest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.AggregateWith;
 import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
@@ -22,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
+// @ExtendWith(FindSlowTestExtension.class)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -29,8 +32,13 @@ class StudyTest {
 
     int value = 0;
 
+    @RegisterExtension
+    static FindSlowTestExtension findSlowTestExtension = new FindSlowTestExtension(1000L);
+
     @Test
-    void test1() {
+    @SlowTest
+    void test1() throws InterruptedException {
+        Thread.sleep(1005L);
         System.out.println(this);
         System.out.println(value++);
     }
@@ -79,10 +87,10 @@ class StudyTest {
             Thread.sleep(300);
         });
 
-        assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
-            new Study(1);
-            Thread.sleep(10000);
-        });
+//        assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
+//            new Study(1);
+//            Thread.sleep(10000);
+//        });
     }
 
     @Order(1)
@@ -95,7 +103,7 @@ class StudyTest {
     @Order(2)
     @ParameterizedTest(name = "{index}, message = {0}")
     @ValueSource(ints = {10, 20, 40, 80, 100})
-    @NullAndEmptySource
+    // @NullAndEmptySource
     @Disabled
     void parameterizedTest(@ConvertWith(StudyConverter.class) Study study) {
         System.out.println(study.getLimit());
