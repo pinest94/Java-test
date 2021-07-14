@@ -1,5 +1,7 @@
 package com.pinest94.javatest;
 
+import com.pinest94.javatest.domain.Member;
+
 public class Study {
 
     private StudyStatus studyStatus = StudyStatus.DRAFT;
@@ -28,5 +30,8 @@ public class Study {
 
     public String getName() {
         return name;
+    }
+
+    public void setOwner(Member member) {
     }
 }
