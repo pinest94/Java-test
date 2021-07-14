@@ -1,8 +1,6 @@
 package com.pinest94.javatest.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +8,15 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Study {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
     private StudyStatus status = StudyStatus.DRAFT;
     private int limitCount;
@@ -36,7 +39,6 @@ public class Study {
     public void open() {
         this.openedDateTime = LocalDateTime.now();
         this.status = StudyStatus.OPENED;
-
     }
 
 }
