@@ -17,6 +17,4 @@ It's provided by **Inflean** and whiteship.
 | lecture |  |  |  |  |  |  |  |
 | check |  |  |  |  |  |  |  |
 ---
-commit 정리<br>
-rebase 테스트<br>
-commit 정리 어떻게 하는거지
+commit 정리 성공!!
