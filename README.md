@@ -16,12 +16,7 @@ It's provided by **Inflean** and whiteship.
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | lecture |  |  |  |  |  |  |  |
 | check |  |  |  |  |  |  |  |
-
 ---
-rebase test
-rebase test
-rebase test
-rebase test
-
-good
-great
+commit 정리<br>
+rebase 테스트<br>
+commit 정리 어떻게 하는거지
