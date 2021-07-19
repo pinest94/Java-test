@@ -24,3 +24,4 @@ rebase test
 rebase test
 
 good
+great
