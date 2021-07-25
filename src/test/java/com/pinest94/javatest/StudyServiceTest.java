@@ -6,6 +6,7 @@ import com.pinest94.javatest.study.StudyRepository;
 import com.pinest94.javatest.study.StudyService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class StudyServiceTest {
@@ -44,5 +45,19 @@ public class StudyServiceTest {
 
         assertNotNull(study.getOwner());
         assertEquals(member, study.getOwner());
+
+        // 횟수 호출 검증
+        verify(memberService, times(1)).notify(study);
+        verify(memberService, times(1)).notify(member);
+        verify(memberService, never()).validate(any());
+
+        // 더 이상 호출되는 메서드가 없어야할때 검증하는 메서드
+        verifyNoMoreInteractions(memberService);
+
+        // 순서 호출 검증
+        InOrder inOrder = inOrder(memberService);
+        inOrder.verify(memberService).notify(study);
+        inOrder.verify(memberService).notify(member);
+
     }
 }
