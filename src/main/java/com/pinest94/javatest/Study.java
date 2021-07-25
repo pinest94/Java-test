@@ -2,6 +2,8 @@ package com.pinest94.javatest;
 
 import com.pinest94.javatest.domain.Member;
 
+import java.time.LocalDateTime;
+
 public class Study {
 
     private StudyStatus studyStatus = StudyStatus.DRAFT;
@@ -9,6 +11,10 @@ public class Study {
     private int limit;
 
     private String name;
+
+    private Member owner;
+
+    private LocalDateTime openDateTime;
 
     public Study(int limit, String name) {
         this.limit = limit;
@@ -33,5 +39,21 @@ public class Study {
     }
 
     public void setOwner(Member member) {
+    }
+
+    public LocalDateTime getOpenDateTime() {
+        return openDateTime;
+    }
+
+    public void setOpenDateTime(LocalDateTime openDateTime) {
+        this.openDateTime = openDateTime;
+    }
+
+    public void open() {
+        // TODO: study open
+        // TODO: status 변경하기
+        // TODO: openDateTime 현재시간으로 설정하기
+        this.studyStatus = StudyStatus.OPENED;
+        this.openDateTime = LocalDateTime.now();
     }
 }
