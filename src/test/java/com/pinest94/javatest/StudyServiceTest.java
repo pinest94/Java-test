@@ -41,9 +41,6 @@ public class StudyServiceTest {
                 .build();
 
         // given
-        when(memberService.findById(1L)).thenReturn(Optional.of(member));
-        when(studyRepository.save(study)).thenReturn(study);
-
         given(memberService.findById(1L)).willReturn(Optional.of(member));
         given(studyRepository.save(study)).willReturn(study);
 
