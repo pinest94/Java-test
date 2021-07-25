@@ -10,8 +10,6 @@ public class Study {
 
     private String name;
 
-    private Member owner;
-
     public Study(int limit, String name) {
         this.limit = limit;
         this.name = name;
@@ -35,10 +33,5 @@ public class Study {
     }
 
     public void setOwner(Member member) {
-        this.owner = member;
-    }
-
-    public Member getOwner() {
-        return this.owner;
     }
 }
