@@ -1,5 +1,5 @@
 package com.pinest94.javatest;
 
 public enum StudyStatus {
-    DRAFT, STARTED, ENDED
+    DRAFT, STARTED, OPENED, ENDED
 }
