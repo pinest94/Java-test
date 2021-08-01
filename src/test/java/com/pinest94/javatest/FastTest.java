@@ -14,5 +14,4 @@ import java.lang.annotation.Target;
 @Tag("fast")
 public @interface FastTest {
 
-
 }

@@ -29,11 +29,10 @@ public class FindSlowTestExtension implements BeforeTestExecutionCallback, After
         ExtensionContext.Store store = getStore(extensionContext);
         String testMethodName = extensionContext.getRequiredTestMethod().getName();
 
-
         long startTime = store.remove("START_TIME", long.class);
         long duration = System.currentTimeMillis() - startTime;
 
-        if(duration > THRESHOLD && annotation == null) {
+        if (duration > THRESHOLD && annotation == null) {
             System.out.printf("Please consider mark method [%s] with @SlowTest. \n", testMethodName);
         }
     }

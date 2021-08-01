@@ -49,7 +49,6 @@ class StudyTest {
         System.out.println(value++);
     }
 
-
     @Test
     @DisplayName("스터디 생성 테스트 😃")
     // @Tag("fast")
@@ -97,12 +96,13 @@ class StudyTest {
     @DisplayName("반복 테스트")
     @RepeatedTest(value = 10, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
     void repeatTest(RepetitionInfo repetitionInfo) {
-        System.out.println("test " + repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
+        System.out.println(
+                "test " + repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
     }
 
     @Order(2)
     @ParameterizedTest(name = "{index}, message = {0}")
-    @ValueSource(ints = {10, 20, 40, 80, 100})
+    @ValueSource(ints = { 10, 20, 40, 80, 100 })
     // @NullAndEmptySource
     @Disabled
     void parameterizedTest(@ConvertWith(StudyConverter.class) Study study) {
@@ -120,14 +120,14 @@ class StudyTest {
 
     @Order(3)
     @ParameterizedTest(name = "{index}, message = {0}")
-    @CsvSource({"10, 'Java Study'", "15, 'JPA Study'", "5, 'Algo Study'"})
+    @CsvSource({ "10, 'Java Study'", "15, 'JPA Study'", "5, 'Algo Study'" })
     void parameterizedTest2(ArgumentsAccessor argumentsAccessor) {
         Study study = new Study(argumentsAccessor.getInteger(0), argumentsAccessor.getString(1));
         System.out.println(study.getLimit() + ", " + study.getName());
     }
 
     @ParameterizedTest(name = "{index}, message = {0}")
-    @CsvSource({"10, 'Java Study'", "15, 'JPA Study'", "5, 'Algo Study'"})
+    @CsvSource({ "10, 'Java Study'", "15, 'JPA Study'", "5, 'Algo Study'" })
     void parameterizedTestWithAggregator(@AggregateWith(StudyAggregator.class) Study study) {
         System.out.println(study.getLimit() + ", " + study.getName());
     }
@@ -135,7 +135,8 @@ class StudyTest {
     static class StudyAggregator implements ArgumentsAggregator {
 
         @Override
-        public Object aggregateArguments(ArgumentsAccessor argumentsAccessor, ParameterContext parameterContext) throws ArgumentsAggregationException {
+        public Object aggregateArguments(ArgumentsAccessor argumentsAccessor, ParameterContext parameterContext)
+                throws ArgumentsAggregationException {
             return new Study(argumentsAccessor.getInteger(0), argumentsAccessor.getString(1));
         }
     }
@@ -159,14 +160,14 @@ class StudyTest {
 
     @Test
     @DisplayName("운영체제에 따른 테스트 - MAC, LINUX")
-    @EnabledOnOs({OS.MAC, OS.LINUX})
+    @EnabledOnOs({ OS.MAC, OS.LINUX })
     void testOnLinuxOrMac() {
         System.out.println("MAC or LINUX입니다");
     }
 
     @Test
     @DisplayName("운영체제에 따른 테스트 - Windows")
-    @EnabledOnOs({OS.WINDOWS})
+    @EnabledOnOs({ OS.WINDOWS })
     void testOnOSWindows() {
         System.out.println("Windows");
     }

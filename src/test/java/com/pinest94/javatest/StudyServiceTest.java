@@ -4,6 +4,7 @@ import com.pinest94.javatest.domain.Member;
 import com.pinest94.javatest.member.MemberService;
 import com.pinest94.javatest.study.StudyRepository;
 import com.pinest94.javatest.study.StudyService;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,9 @@ import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Optional;
 
@@ -22,12 +26,14 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
+@Testcontainers
 public class StudyServiceTest {
 
     @Mock
     MemberService memberService;
 
-    @Mock
+    @Autowired
     StudyRepository studyRepository;
 
     @Test
@@ -38,9 +44,9 @@ public class StudyServiceTest {
         assertNotNull(studyService);
 
         Member member = Member.builder()
-                .id(1L)
-                .email("hansol@gmail.com")
-                .build();
+                              .id(1L)
+                              .email("hansol@gmail.com")
+                              .build();
 
         // given
         given(memberService.findById(1L)).willReturn(Optional.of(member));
@@ -80,3 +86,4 @@ public class StudyServiceTest {
 
     }
 }
+
